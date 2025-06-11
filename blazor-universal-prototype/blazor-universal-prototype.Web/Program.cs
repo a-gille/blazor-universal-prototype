@@ -15,7 +15,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddSingleton<MailService>();
 builder.Services.AddSingleton<AttachmentService>();
-builder.Services.AddSingleton<HomeViewModel>();
+builder.Services.AddScoped<HomeViewModel>();
 builder.Services.AddSingleton<MailDetailViewModel>();
 builder.Services.AddSingleton<SendViewModel>();
 

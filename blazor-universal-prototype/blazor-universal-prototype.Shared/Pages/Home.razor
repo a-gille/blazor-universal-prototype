@@ -4,21 +4,27 @@
 
 <PageTitle>Postfach</PageTitle>
 
-    <FluentStack Orientation="Orientation.Vertical">
+<FluentStack Orientation="Orientation.Vertical">
 
-        <h1>Postfach</h1>
-    
-        <FluentCard>
-            <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
-                <FluentIcon Value="@(new Icons.Regular.Size24.Info())"/>
-                <FluentBodyContent>
-                    Über Ihr Postfach können Sie Ihre Dokumente mit wenigen Klicks verschlüsselt mit uns austauschen.
-                    Das System wird Ihr Anliegen automatisch an die richtige Stelle weiterleiten.
-                </FluentBodyContent>
-            </FluentStack>
-        </FluentCard>
+    <h1>Postfach</h1>
 
-        <FluentStack Orientation="Orientation.Vertical">
+    <FluentCard Style="background-color:lightgray; border-color: lightgray">
+        <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20" >
+            <FluentIcon Value="@(new Icons.Regular.Size24.Info())"/>
+            <FluentBodyContent>
+                Über Ihr Postfach können Sie Ihre Dokumente mit wenigen Klicks verschlüsselt mit uns austauschen.
+                Das System wird Ihr Anliegen automatisch an die richtige Stelle weiterleiten.
+            </FluentBodyContent>
+        </FluentStack>
+    </FluentCard>
+
+    <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Top">
+        @if(ViewModel.Mails.Count == 0)
+        {
+            <FluentProgressRing />
+        } 
+        else
+        {
             @foreach (var mail in ViewModel.Mails)
             {
                 <FluentCard @onclick="() => ViewModel.SelectMailCommand.Execute(mail.Id)">
@@ -32,12 +38,13 @@
                     </FluentStack>
                 </FluentCard>
             }
-        </FluentStack>
+        }
     </FluentStack>
+</FluentStack>
 
-<FluentButton Appearance="Appearance.Accent" @onclick="ViewModel.SelectSendMailCommand.Execute">
+@* <FluentButton Appearance="Appearance.Accent" @onclick="ViewModel.SelectSendMailCommand.Execute">
     <FluentIcon Value="@(new Icons.Regular.Size24.Add())" />
-</FluentButton>
+</FluentButton> *@
 
 
 @code {

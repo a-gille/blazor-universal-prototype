@@ -16,6 +16,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
             _attachmentService = attachmentService;
         }
 
+        [ObservableProperty]
         private int _mailId;
 
         [ObservableProperty]
