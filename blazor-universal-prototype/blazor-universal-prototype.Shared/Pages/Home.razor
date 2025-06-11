@@ -1,14 +1,48 @@
 ﻿@page "/"
 @using blazor_universal_prototype.Shared.Services
-@inject IFormFactor FormFactor
+@inject blazor_universal_prototype.Shared.ViewModels.HomeViewModel ViewModel
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Postfach</PageTitle>
 
-<h1>Hello, world!</h1>
+    <FluentStack Orientation="Orientation.Vertical">
 
-Welcome to your new app running on <em>@factor</em> using <em>@platform</em>.
+        <h1>Postfach</h1>
+    
+        <FluentCard>
+            <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
+                <FluentIcon Value="@(new Icons.Regular.Size24.Info())"/>
+                <FluentBodyContent>
+                    Über Ihr Postfach können Sie Ihre Dokumente mit wenigen Klicks verschlüsselt mit uns austauschen.
+                    Das System wird Ihr Anliegen automatisch an die richtige Stelle weiterleiten.
+                </FluentBodyContent>
+            </FluentStack>
+        </FluentCard>
+
+        <FluentStack Orientation="Orientation.Vertical">
+            @foreach (var mail in ViewModel.Mails)
+            {
+                <FluentCard @onclick="() => ViewModel.SelectMailCommand.Execute(mail.Id)">
+                    <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
+                        <FluentIcon Value="@(new Icons.Regular.Size24.FolderMail())" />
+                        <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">
+                            <FluentBodyContent>Aktenfall: @mail.Subject</FluentBodyContent>
+                            <FluentBodyContent>@mail.Date.ToShortDateString()</FluentBodyContent>
+                        </FluentStack>
+                        <FluentIcon Value="@(new Icons.Regular.Size24.ChevronRight())" />
+                    </FluentStack>
+                </FluentCard>
+            }
+        </FluentStack>
+    </FluentStack>
+
+<FluentButton Appearance="Appearance.Accent" @onclick="ViewModel.SelectSendMailCommand.Execute">
+    <FluentIcon Value="@(new Icons.Regular.Size24.Add())" />
+</FluentButton>
+
 
 @code {
-    private string factor => FormFactor.GetFormFactor();
-    private string platform => FormFactor.GetPlatform();
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewModel.LoadMailsCommand.ExecuteAsync(null);
+    }
 }
