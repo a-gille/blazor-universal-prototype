@@ -2,6 +2,7 @@
 using blazor_universal_prototype.Shared.Models;
 using blazor_universal_prototype.Shared.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace blazor_universal_prototype.Shared.ViewModels
 {
@@ -34,24 +35,21 @@ namespace blazor_universal_prototype.Shared.ViewModels
         [ObservableProperty]
         private int _numberOfAttachments = 0;
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        [RelayCommand]
+        public async Task LoadMailDetails(int? id)
         {
+            MailId = id ?? 0;
             HasNoAttachments = false;
-            if (query.ContainsKey("id") && _mailId != int.Parse(query["id"] as string ?? "1"))
-            {
-                Attachments.Clear();
-                NumberOfAttachments = Attachments.Count;
-                IsLoading = true;
-                _mailId = int.Parse(query["id"] as string ?? "1");
+            Attachments.Clear();
+            NumberOfAttachments = Attachments.Count;
+            IsLoading = true;
+            var loadAttachmentsTask = LoadAttachmentsAsync();
+            var getMailTask = _emailService.GetMailByIdAsync(MailId);
+            await Task.WhenAll(loadAttachmentsTask, getMailTask);
 
-                var loadAttachmentsTask = LoadAttachmentsAsync();
-                var getMailTask = _emailService.GetMailByIdAsync(_mailId);
+            Mail = await getMailTask;
+            IsLoading = false;
 
-                await Task.WhenAll(loadAttachmentsTask, getMailTask);
-
-                Mail = await getMailTask;
-                IsLoading = false;
-            }
             NumberOfAttachments = Attachments.Count;
             if (Attachments.Count <= 0)
             {
@@ -61,7 +59,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
 
         private async Task LoadAttachmentsAsync()
         {
-            var attachments = await _attachmentService.GetAttachmentByIdAsync(_mailId);
+            var attachments = await _attachmentService.GetAttachmentByIdAsync(MailId);
             foreach (var attachment in attachments)
             {
                 Attachments.Add(attachment);
