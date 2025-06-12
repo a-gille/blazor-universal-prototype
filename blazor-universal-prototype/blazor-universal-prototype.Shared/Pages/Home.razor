@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using blazor_universal_prototype.Shared.Services
-@inject blazor_universal_prototype.Shared.ViewModels.HomeViewModel ViewModel
+@using blazor_universal_prototype.Shared.ViewModels
+@inject HomeViewModel ViewModel
+@inject INavigationService NavigationService
 
 <PageTitle>Postfach</PageTitle>
 
@@ -27,7 +29,7 @@
         {
             @foreach (var mail in ViewModel.Mails)
             {
-                <FluentCard @onclick="() => ViewModel.SelectMailCommand.Execute(mail.Id)">
+                <FluentCard @onclick="() => NavigationService.SelectMail(mail.Id)">
                     <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
                         <FluentIcon Value="@(new Icons.Regular.Size24.FolderMail())" />
                         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">

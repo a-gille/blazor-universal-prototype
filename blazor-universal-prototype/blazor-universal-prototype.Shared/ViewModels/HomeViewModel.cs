@@ -41,19 +41,5 @@ namespace blazor_universal_prototype.Shared.ViewModels
             return true;
         }
 
-        [RelayCommand]
-        private Task SelectMail(int id)
-        {
-            _navigationManager.NavigateTo($"/maildetail/{id}");
-            return Task.CompletedTask;
-        }
-
-        [RelayCommand]
-        private Task SelectSendMail()
-        {
-            _navigationManager.NavigateTo("/send");
-            return Task.CompletedTask;
-        }
-
     }
 }
