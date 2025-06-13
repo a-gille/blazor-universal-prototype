@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using blazor_universal_prototype.Shared.Models;
+using blazor_universal_prototype.Shared.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -7,6 +8,12 @@ namespace blazor_universal_prototype.Shared.ViewModels
 {
     public partial class SendViewModel : ObservableObject
     {
+        private readonly IAddAttachmentService _addAttachmentService;
+        public SendViewModel(IAddAttachmentService addAttachmentService)
+        {
+            _addAttachmentService = addAttachmentService;
+        }
+
         [ObservableProperty]
         private bool _isFabOpen = false;
 
@@ -29,7 +36,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
         private DateTime _date = DateTime.Now;
 
         [ObservableProperty]
-        private string _selectedCategory;
+        private string _selectedCategory = "";
 
         [ObservableProperty]
         private ObservableCollection<AttachmentDto> _attachments = new();
@@ -60,84 +67,42 @@ namespace blazor_universal_prototype.Shared.ViewModels
             }
         }
 
-        //[RelayCommand]
-        //private async Task PickFileAsync()
-        //{
-        //    try
-        //    {
-        //        var result = await FilePicker.PickAsync(new PickOptions
-        //        {
-        //            PickerTitle = "Wähle eine Datei",
-        //            FileTypes = FilePickerFileType.Pdf
-        //        });
-        //        if (result != null)
-        //        {
-        //            var newId = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-        //            Attachments.Add(new AttachmentDto()
-        //            {
-        //                Id = newId,
-        //                FileName = result.FileName,
-        //            });
-        //        }
-        //        CheckAttachments();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Dateiauswahl fehlgeschlagen: {ex.Message}");
-        //    }
-        //}
+        [RelayCommand]
+        private async Task PickFileAsync()
+        {
+            var attachment = await _addAttachmentService.PickFileAsync();
+            if (attachment != null)
+            {
+                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
+                Attachments.Add(attachment);
+                CheckAttachments();
+            }
+        }
 
+        [RelayCommand]
+        private async Task PickImageAsync()
+        {
+            var attachment = await _addAttachmentService.PickImageAsync();
+            if (attachment != null)
+            {
+                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
+                Attachments.Add(attachment);
+                CheckAttachments();
+            }
+        }
 
-        //[RelayCommand]
-        //private async Task PickImageAsync()
-        //{
-        //    try
-        //    {
-        //        var photo = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-        //        {
-        //            Title = "Wähle ein Bild"
-        //        });
-        //        if (photo != null)
-        //        {
-        //            var newId = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-        //            Attachments.Add(new AttachmentDto()
-        //            {
-        //                Id = newId,
-        //                FileName = photo.FileName,
-        //            });
-        //        }
-        //        CheckAttachments();
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Bildausswahl fehlgeschlagen: {ex.Message}");
-        //    }
-        //}
-
-        //[RelayCommand]
-        //private async Task CapturePhotoAsync()
-        //{
-        //    try
-        //    {
-        //        var photo = await MediaPicker.CapturePhotoAsync();
-        //        if (photo != null)
-        //        {
-        //            var newId = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-        //            Attachments.Add(new AttachmentDto()
-        //            {
-        //                Id = newId,
-        //                FileName = photo.FileName,
-        //            });
-        //        }
-        //        CheckAttachments();
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Fotoaufnahme fehlgeschlagen: {ex.Message}");
-        //    }
-        //}
+        [RelayCommand]
+        private async Task CapturePhotoAsync()
+        {
+            Console.WriteLine("capture foto");
+            var attachment = await _addAttachmentService.CapturePhotoAsync();
+            if (attachment != null)
+            {
+                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
+                Attachments.Add(attachment);
+                CheckAttachments();
+            }
+        }
 
         [RelayCommand]
         private void RemoveAttachment(int Id)

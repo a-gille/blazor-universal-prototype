@@ -1,3 +1,4 @@
+using blazor_universal_maui_prototype.Web.Services;
 using blazor_universal_prototype.Shared.Services;
 using blazor_universal_prototype.Shared.ViewModels;
 using blazor_universal_prototype.Web.Components;
@@ -14,6 +15,7 @@ builder.Services.AddRazorComponents()
 // Add device-specific services used by the blazor_universal_prototype.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddScoped<INavigationService, NavigationService>();
+builder.Services.AddSingleton<IAddAttachmentService, AddAttachmentService>();
 builder.Services.AddSingleton<MailService>();
 builder.Services.AddSingleton<AttachmentService>();
 builder.Services.AddScoped<HomeViewModel>();

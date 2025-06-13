@@ -3,10 +3,10 @@
 
 <PageTitle>Nachricht versenden</PageTitle>
 
-<FluentStack Orientation="Orientation.Vertical" VerticalGap="26" >
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="20" >
     <h1>Nachricht versenden</h1>
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
-        <FluentBodyContent>Aktenfall vom @DateTime.UtcNow.ToFileTime()</FluentBodyContent>
+        <FluentBodyContent>Aktenfall vom @DateTime.UtcNow.ToShortDateString() @DateTime.UtcNow.ToLongTimeString()</FluentBodyContent>
         <FluentBodyContent>Aktenzeichen: 202503248081</FluentBodyContent>
     </FluentStack>
     <div class="responsive-select">
@@ -27,7 +27,7 @@
     {
         @foreach (var attachment in ViewModel.Attachments)
         {
-            <FluentCard>
+            <FluentCard @onclick="() => ViewModel.RemoveAttachmentCommand.Execute(attachment.Id)">
                 <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
                     <FluentIcon Value="@(new Icons.Regular.Size24.DocumentPdf())" />
                     <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">
@@ -42,12 +42,35 @@
 </FluentStack>
 
 @if (!OperatingSystem.IsBrowser())
-{ }
-<div style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;">
-    <FluentButton Style="width: 74px; height: 74px; border-radius: 50%;" Appearance="Appearance.Accent">
-        <FluentIcon Style="stroke: white; width: 50px; height: 50px;" Value="@(new Icons.Regular.Size24.Add())" />
-    </FluentButton>
-</div>
+{
+    <div class="fab-container">
+        @if (ViewModel.IsFabOpen)
+        {
+            <div class="fab-actions">
+                <FluentButton Style="width: 56px; height: 56px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="@ViewModel.PickFileCommand.ExecuteAsync">
+                    <FluentIcon Color="Color.Fill" Value="@(new Icons.Regular.Size24.Attach())" />
+                </FluentButton>
+                <FluentButton Style="width: 56px; height: 56px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="@ViewModel.PickImageCommand.ExecuteAsync">
+                    <FluentIcon Color="Color.Fill" Value="@(new Icons.Regular.Size24.Image())" />
+                </FluentButton>
+                <FluentButton Style="width: 56px; height: 56px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="@ViewModel.CapturePhotoCommand.ExecuteAsync">
+                    <FluentIcon Color="Color.Fill"  Value="@(new Icons.Regular.Size24.Camera())" />
+                </FluentButton>
+            </div>
+        }
+
+        <FluentButton Style="width: 74px; height: 74px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="@ViewModel.ToggleFabCommand.ExecuteAsync">
+            @if (!ViewModel.IsFabOpen)
+            {
+                <FluentIcon Style="width: 50px; height: 50px;" Color="Color.Fill"  Value="@(new Icons.Regular.Size24.Add())" />
+            }
+            else
+            {
+                <FluentIcon Style="width: 50px; height: 50px;" Color="Color.Fill" Value="@(new Icons.Regular.Size24.Dismiss())" />
+            }
+        </FluentButton>
+    </div>
+}
 
 @code {
 

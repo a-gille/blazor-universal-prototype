@@ -22,6 +22,7 @@ namespace blazor_universal_maui_prototype
 
             builder.Services.AddFluentUIComponents();
             builder.Services.AddSingleton<StateService>();
+            builder.Services.AddSingleton<IAddAttachmentService, AddAttachmentService>();
             builder.Services.AddScoped<INavigationService, NavigationService>();
             builder.Services.AddSingleton<MailService>();
             builder.Services.AddSingleton<AttachmentService>();

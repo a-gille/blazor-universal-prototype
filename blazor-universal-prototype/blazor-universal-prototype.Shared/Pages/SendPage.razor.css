@@ -3,6 +3,28 @@
     width: 100%;
 }
 
+.fab-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.fab-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.fab-toggle {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
 @media (min-width: 768px) {
     .responsive-select {
         width: 50%;
