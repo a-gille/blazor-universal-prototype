@@ -1,28 +1,24 @@
 ﻿using blazor_universal_prototype.Shared.Services;
+using Microsoft.AspNetCore.Components;
 namespace blazor_universal_prototype.Services
 {
-    internal partial class NavigationService : INavigationService
+    public partial class NavigationService : INavigationService
     {
-        public NavigationService()
+        private NavigationManager _navigationManager;
+        public NavigationService(NavigationManager navigationManager)
         {
+            _navigationManager = navigationManager;
         }
 
-        public async Task SelectMail(int id)
+        public Task SelectMail(int id)
         {
-            if (Shell.Current is not null)
-            {
-                await Shell.Current.GoToAsync($"/maildetail/{id}");
-            }
-            else
-            {
-                // Optional: Loggen oder Exception werfen
-                Console.WriteLine("Shell.Current is null – navigation aborted.");
-            }
+            _navigationManager.NavigateTo($"/maildetail?id={id}");
+            return Task.CompletedTask;
         }
-
-        public async Task SelectSendMail()
+        public Task SelectSendMail()
         {
-            await Shell.Current.GoToAsync("/send");
+            _navigationManager.NavigateTo("/send");
+            return Task.CompletedTask;
         }
     }
 }

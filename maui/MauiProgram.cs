@@ -1,8 +1,10 @@
-﻿using blazor_universal_prototype.Shared.Services;
+﻿using blazor_universal_maui_prototype.Services;
+using blazor_universal_maui_prototype.State;
+using blazor_universal_prototype.Shared.Services;
 using blazor_universal_prototype.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
 
-namespace maui
+namespace blazor_universal_maui_prototype
 {
     public static class MauiProgram
     {
@@ -16,6 +18,8 @@ namespace maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddSingleton<StateService>();
+            builder.Services.AddScoped<INavigationService, NavigationService>();
             builder.Services.AddSingleton<MailService>();
             builder.Services.AddSingleton<AttachmentService>();
             builder.Services.AddSingleton<MailDetailViewModel>();

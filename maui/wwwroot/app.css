@@ -1,3 +1,7 @@
+body {
+    margin: 16px;
+}
+
 .status-bar-safe-area {
     display: none;
 }

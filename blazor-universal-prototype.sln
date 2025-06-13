@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-universal-prototype.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-universal-prototype.Web.Client", "blazor-universal-prototype\blazor-universal-prototype.Web.Client\blazor-universal-prototype.Web.Client.csproj", "{6EB7A273-C2C8-4E13-8BBB-46A484D1211C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maui", "maui\maui.csproj", "{97291230-0177-444D-8499-9ABB97A1B4D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-universal-maui-prototype", "maui\blazor-universal-maui-prototype.csproj", "{97291230-0177-444D-8499-9ABB97A1B4D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

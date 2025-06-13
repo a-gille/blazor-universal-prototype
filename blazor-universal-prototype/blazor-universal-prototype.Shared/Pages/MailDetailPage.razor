@@ -1,4 +1,4 @@
-﻿@page "/maildetail/{id:int}"
+﻿@page "/maildetail"
 @inject blazor_universal_prototype.Shared.ViewModels.MailDetailViewModel ViewModel
 
 <PageTitle>Details</PageTitle>
@@ -48,6 +48,7 @@
 
 @code {
     [Parameter]
+    [SupplyParameterFromQuery]
     public int id { get; set; }
 
     protected override async Task OnParametersSetAsync()

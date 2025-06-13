@@ -12,7 +12,7 @@ namespace blazor_universal_prototype.Web.Client.Services
 
         public Task SelectMail(int id)
         {
-            _navigationManager.NavigateTo($"/maildetail/{id}");
+            _navigationManager.NavigateTo($"/maildetail?id={id}");
             return Task.CompletedTask;
         }
         public Task SelectSendMail()

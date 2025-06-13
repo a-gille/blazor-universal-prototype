@@ -1,7 +1,6 @@
-﻿using ObjCRuntime;
-using UIKit;
+﻿using UIKit;
 
-namespace maui
+namespace blazor_universal_maui_prototype
 {
     public class Program
     {

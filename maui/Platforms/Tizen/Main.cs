@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace maui
+namespace blazor_universal_maui_prototype
 {
     internal class Program : MauiApplication
     {

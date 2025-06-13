@@ -1,4 +1,6 @@
-﻿namespace maui
+﻿using blazor_universal_maui_prototype.Pages;
+
+namespace blazor_universal_maui_prototype
 {
     public partial class App : Application
     {

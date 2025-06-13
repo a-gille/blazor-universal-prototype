@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="blazor_universal_maui_prototype.Pages.MailDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Maui;assembly=Microsoft.AspNetCore.Components.WebView.Maui"
+    xmlns:shared="clr-namespace:blazor_universal_prototype.Shared.Pages;assembly=blazor-universal-prototype.Shared">
+
+    <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
+        <BlazorWebView.RootComponents>
+            <RootComponent
+                x:Name="root"
+                ComponentType="{x:Type shared:MailDetailPage}"
+                Selector="#app" />
+        </BlazorWebView.RootComponents>
+    </BlazorWebView>
+</ContentPage>
