@@ -2,7 +2,7 @@
 using blazor_universal_prototype.Shared.Services;
 namespace blazor_universal_maui_prototype.Services
 {
-    internal partial class NavigationService : INavigationService
+    internal class NavigationService : INavigationService
     {
         private readonly StateService _state;
         public NavigationService(StateService state)

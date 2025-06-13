@@ -8,6 +8,16 @@ main {
     flex: 1;
 }
 
+.centered-content {
+    max-width: 1500px;
+    height: 100%;
+    margin-left:  auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+}
+
 .sidebar {
     background-image: linear-gradient(180deg, #0f6cbd);
 }

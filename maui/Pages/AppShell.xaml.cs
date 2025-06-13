@@ -7,6 +7,7 @@ namespace blazor_universal_maui_prototype.Pages
         {
             InitializeComponent();
             Routing.RegisterRoute("maildetail", typeof(MailDetailPage));
+            Routing.RegisterRoute("send", typeof(SendPage));
         }
     }
 }

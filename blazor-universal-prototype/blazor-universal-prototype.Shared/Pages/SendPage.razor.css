@@ -1,0 +1,10 @@
+﻿
+.responsive-select {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .responsive-select {
+        width: 50%;
+    }
+}

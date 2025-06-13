@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="blazor_universal_maui_prototype.Pages.MailDetailPage"
+    x:Class="blazor_universal_maui_prototype.Pages.SendPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Maui;assembly=Microsoft.AspNetCore.Components.WebView.Maui"
@@ -11,7 +11,7 @@
             <BlazorWebView.RootComponents>
                 <RootComponent
                     x:Name="root"
-                    ComponentType="{x:Type shared:MailDetailPage}"
+                    ComponentType="{x:Type shared:SendPage}"
                     Selector="#app" />
             </BlazorWebView.RootComponents>
         </BlazorWebView>

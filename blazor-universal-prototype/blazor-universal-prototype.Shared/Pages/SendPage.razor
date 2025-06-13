@@ -1,63 +1,54 @@
-﻿@page "/weather"
+﻿@page "/send"
+@inject blazor_universal_prototype.Shared.ViewModels.SendViewModel ViewModel
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>Nachricht versenden</PageTitle>
 
-<h1>Weather</h1>
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="26" >
+    <h1>Nachricht versenden</h1>
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+        <FluentBodyContent>Aktenfall vom @DateTime.UtcNow.ToFileTime()</FluentBodyContent>
+        <FluentBodyContent>Aktenzeichen: 202503248081</FluentBodyContent>
+    </FluentStack>
+    <div class="responsive-select">
+        <FluentSelect Items="@ViewModel.Categories" Style="width:100%">
+        </FluentSelect>
+    </div>
+    <FluentTextArea Style="width:100%"></FluentTextArea>
+    <h3>Anhänge</h3>
+    @if(ViewModel.Attachments.Count == 0)
+    {
+        <FluentStack Orientation="Orientation.Vertical" VerticalAlignment="VerticalAlignment.Top" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
+            <FluentIcon Style="width:52px; height:52px;" Value="@(new Icons.Regular.Size24.FolderArrowUp())" />
+            <FluentBodyContent Style="text-align:center">Keine Daten vorhanden</FluentBodyContent>
+            <FluentBodyContent Style="text-align:center">Sobald Sie ein neues Dokument hinzufügen, wird es hier angezeigt</FluentBodyContent>
+        </FluentStack>
+    }
+    else
+    {
+        @foreach (var attachment in ViewModel.Attachments)
+        {
+            <FluentCard>
+                <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
+                    <FluentIcon Value="@(new Icons.Regular.Size24.DocumentPdf())" />
+                    <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">
+                        <FluentBodyContent>@attachment.FileName</FluentBodyContent>
+                        <FluentBodyContent>@attachment.Size</FluentBodyContent>
+                    </FluentStack>
+                    <FluentIcon  Value="@(new Icons.Regular.Size24.Dismiss())" />
+                </FluentStack>
+            </FluentCard>
+        }
+    }
+</FluentStack>
 
-<p>This component demonstrates showing data.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+@if (!OperatingSystem.IsBrowser())
+{ }
+<div style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;">
+    <FluentButton Style="width: 74px; height: 74px; border-radius: 50%;" Appearance="Appearance.Accent">
+        <FluentIcon Style="stroke: white; width: 50px; height: 50px;" Value="@(new Icons.Regular.Size24.Add())" />
+    </FluentButton>
+</div>
 
 @code {
-    private WeatherForecast[]? forecasts;
 
-    protected override async Task OnInitializedAsync()
-    {
-        // Simulate asynchronous loading to demonstrate a loading indicator
-        await Task.Delay(500);
-
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = startDate.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = summaries[Random.Shared.Next(summaries.Length)]
-        }).ToArray();
-    }
-
-    private class WeatherForecast
-    {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
 }

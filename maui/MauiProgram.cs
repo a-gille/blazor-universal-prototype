@@ -3,6 +3,7 @@ using blazor_universal_maui_prototype.State;
 using blazor_universal_prototype.Shared.Services;
 using blazor_universal_prototype.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace blazor_universal_maui_prototype
 {
@@ -18,6 +19,8 @@ namespace blazor_universal_maui_prototype
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddFluentUIComponents();
             builder.Services.AddSingleton<StateService>();
             builder.Services.AddScoped<INavigationService, NavigationService>();
             builder.Services.AddSingleton<MailService>();
