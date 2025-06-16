@@ -2,7 +2,6 @@
 @using blazor_universal_prototype.Shared.Services
 @using blazor_universal_prototype.Shared.ViewModels
 @inject HomeViewModel ViewModel
-@inject INavigationService NavigationService
 
 <PageTitle>Postfach</PageTitle>
 
@@ -29,7 +28,7 @@
         {
             @foreach (var mail in ViewModel.Mails)
             {
-                <FluentCard @onclick="() => NavigationService.SelectMail(mail.Id)">
+                <FluentCard @onclick="() => ViewModel.NavigateToMailDetailsCommand.ExecuteAsync(mail.Id)">
                     <FluentStack HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="20">
                         <FluentIcon Value="@(new Icons.Regular.Size24.FolderMail())" />
                         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">
@@ -45,7 +44,7 @@
 </FluentStack>
     
 <div class="fab-container">
-    <FluentButton Style="width: 74px; height: 74px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="NavigationService.SelectSendMail">
+    <FluentButton Style="width: 74px; height: 74px; border-radius: 50%;" Appearance="Appearance.Accent" @onclick="ViewModel.NavigateToSendMailCommand.Execute">
         <FluentIcon Color="Color.Fill" Style="width: 50px; height: 50px;" Value="@(new Icons.Regular.Size24.Add())" />
     </FluentButton>
 </div>

@@ -10,13 +10,13 @@ namespace blazor_universal_maui_prototype.Services
             _state = state;
         }
 
-        public async Task SelectMail(int id)
+        public async Task NavigateToMailDetail(int id)
         {
             _state.MailId = id;
             await Shell.Current.GoToAsync($"/maildetail");
         }
 
-        public async Task SelectSendMail()
+        public async Task NavigateToSendMail()
         {
             await Shell.Current.GoToAsync("/send");
         }

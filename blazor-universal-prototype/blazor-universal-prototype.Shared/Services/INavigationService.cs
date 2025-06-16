@@ -2,8 +2,8 @@
 {
     public interface INavigationService
     {
-        Task SelectMail(int id);
+        Task NavigateToMailDetail(int id);
 
-        Task SelectSendMail();
+        Task NavigateToSendMail();
     }
 }

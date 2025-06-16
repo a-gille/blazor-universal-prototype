@@ -3,18 +3,17 @@ using blazor_universal_prototype.Shared.Models;
 using blazor_universal_prototype.Shared.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.AspNetCore.Components;
 
 namespace blazor_universal_prototype.Shared.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
         private readonly MailService _mailService;
-        private readonly NavigationManager _navigationManager;
-        public HomeViewModel(MailService mailService, NavigationManager navigationManager)
+        private readonly INavigationService _navigationService;
+        public HomeViewModel(MailService mailService, INavigationService navigationService)
         {
             _mailService = mailService;
-            _navigationManager = navigationManager;
+            _navigationService = navigationService;
         }
 
         [ObservableProperty]
@@ -39,6 +38,18 @@ namespace blazor_universal_prototype.Shared.ViewModels
             Mails.Clear();
             await LoadMails();
             return true;
+        }
+
+        [RelayCommand]
+        private async Task NavigateToMailDetails(int id)
+        {
+            await _navigationService.NavigateToMailDetail(id);
+        }
+
+        [RelayCommand]
+        private async Task NavigateToSendMail()
+        {
+            await _navigationService.NavigateToSendMail();
         }
 
     }
