@@ -40,7 +40,7 @@
                     <FluentIcon Value="@(new Icons.Regular.Size24.DocumentPdf())" />
                     <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="@HorizontalAlignment.Left" VerticalAlignment="@VerticalAlignment.Center" VerticalGap="0">
                         <FluentBodyContent>@attachment.FileName</FluentBodyContent>
-                        <FluentBodyContent>@attachment.Size</FluentBodyContent>
+                        <FluentBodyContent>@attachment.Size B</FluentBodyContent>
                     </FluentStack>
                     <FluentIcon  Value="@(new Icons.Regular.Size24.Dismiss())" />
                 </FluentStack>
@@ -80,9 +80,28 @@
 }
 else
 {
-    <input />
+    <div class="fab-container">
+        <label class="file-button">
+            <FluentIcon Color="Color.Fill" Value="@(new Icons.Regular.Size24.Attach())" />
+            <InputFile OnChange="HandleFileSelected" style="display: none;" />
+        </label>
+    </div>
 }
 
 @code {
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            ViewModel.AddAttachmentCommand.Execute(new Models.AttachmentDto()
+            {
+                FileName = file.Name,
+                Size = (int) file.Size,
+                Id = 0,
+            });
+        }
+    }
 
 }

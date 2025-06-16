@@ -73,9 +73,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
             var attachment = await _addAttachmentService.PickFileAsync();
             if (attachment != null)
             {
-                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-                Attachments.Add(attachment);
-                CheckAttachments();
+                AddAttachment(attachment);
             }
         }
 
@@ -85,9 +83,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
             var attachment = await _addAttachmentService.PickImageAsync();
             if (attachment != null)
             {
-                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-                Attachments.Add(attachment);
-                CheckAttachments();
+                AddAttachment(attachment);
             }
         }
 
@@ -98,10 +94,16 @@ namespace blazor_universal_prototype.Shared.ViewModels
             var attachment = await _addAttachmentService.CapturePhotoAsync();
             if (attachment != null)
             {
-                attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
-                Attachments.Add(attachment);
-                CheckAttachments();
+                AddAttachment(attachment);
             }
+        }
+
+        [RelayCommand]
+        private void AddAttachment(AttachmentDto attachment)
+        {
+            attachment.Id = Attachments.Any() ? Attachments.Max(a => a.Id) + 1 : 1;
+            Attachments.Add(attachment);
+            CheckAttachments();
         }
 
         [RelayCommand]
@@ -130,6 +132,7 @@ namespace blazor_universal_prototype.Shared.ViewModels
             }
             FabTranslationY = value;
         }
+
         [RelayCommand]
         private void CheckAttachments()
         {
