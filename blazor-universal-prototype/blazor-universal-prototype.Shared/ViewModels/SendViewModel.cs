@@ -90,7 +90,6 @@ namespace blazor_universal_prototype.Shared.ViewModels
         [RelayCommand]
         private async Task CapturePhotoAsync()
         {
-            Console.WriteLine("capture foto");
             var attachment = await _addAttachmentService.CapturePhotoAsync();
             if (attachment != null)
             {

@@ -8,12 +8,11 @@ using Microsoft.FluentUI.AspNetCore.Components;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddFluentUIComponents();
 // Add device-specific services used by the blazor_universal_prototype.Shared project
-builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddScoped<INavigationService, NavigationService>();
 builder.Services.AddSingleton<IAddAttachmentService, AddAttachmentService>();
 builder.Services.AddSingleton<MailService>();
 builder.Services.AddSingleton<AttachmentService>();
-builder.Services.AddSingleton<HomeViewModel>();
+builder.Services.AddScoped<HomeViewModel>();
 builder.Services.AddSingleton<MailDetailViewModel>();
 builder.Services.AddSingleton<SendViewModel>();
 

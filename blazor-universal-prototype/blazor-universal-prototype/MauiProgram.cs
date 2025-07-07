@@ -1,4 +1,5 @@
-﻿using blazor_universal_prototype.Services;
+﻿using blazor_universal_maui_prototype.Services;
+using blazor_universal_prototype.Services;
 using blazor_universal_prototype.Shared.Services;
 using blazor_universal_prototype.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -19,8 +20,8 @@ namespace blazor_universal_prototype
                 });
             builder.Services.AddFluentUIComponents();
             // Add device-specific services used by the blazor_universal_prototype.Shared project
-            builder.Services.AddSingleton<IFormFactor, FormFactor>();
             builder.Services.AddTransient<INavigationService, NavigationService>();
+            builder.Services.AddSingleton<IAddAttachmentService, AddAttachmentService>();
             builder.Services.AddSingleton<MailService>();
             builder.Services.AddSingleton<AttachmentService>();
             builder.Services.AddScoped<HomeViewModel>();

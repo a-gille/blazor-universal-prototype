@@ -13,7 +13,6 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 // Add device-specific services used by the blazor_universal_prototype.Shared project
-builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddScoped<INavigationService, NavigationService>();
 builder.Services.AddSingleton<IAddAttachmentService, AddAttachmentService>();
 builder.Services.AddSingleton<MailService>();

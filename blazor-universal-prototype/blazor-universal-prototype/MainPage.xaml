@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:blazor_universal_prototype"
-             xmlns:shared="clr-namespace:blazor_universal_prototype.Shared;assembly=blazor-universal-prototype.Shared"
-             x:Class="blazor_universal_prototype.MainPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+<ContentPage
+    x:Class="blazor_universal_prototype.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:blazor_universal_prototype"
+    xmlns:shared="clr-namespace:blazor_universal_prototype.Shared;assembly=blazor-universal-prototype.Shared">
 
     <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
-            <RootComponent Selector="#app" ComponentType="{x:Type shared:Routes}" />
+            <RootComponent ComponentType="{x:Type shared:Routes}" Selector="#app" />
         </BlazorWebView.RootComponents>
     </BlazorWebView>
 
